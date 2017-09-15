@@ -1,22 +1,40 @@
-%% Exercice 1
+%% Exercice 1 : Signaux simples
 
-% Question 1
+%% Question 1
 
-X = 0:pi/13:7*pi; % domaine
+%%
+% Calcul du domaine temporel, compris entre 0 et 7 * pi avec un pas de pi /
+% 13 :
 
-Y = sin(X); % fonction sinus
+X = 0:pi/13:7*pi;
 
-C = 2.8 * ones(size(X)); % fonction constante à 2.8
+%%
+% Calcul des différents sinaux simples :
 
-B = sqrt(0.4) .* randn(size(X)) + 0.1; % bruit gaussien de moyenne 0.1 et de variance 0.4
+% fonction sinus
+Y = sin(X);
 
-Z = Y + C + B; % somme des signaux
+% fonction constante à 2.8
+C = 2.8 * ones(size(X));
 
-meanZ = mean(Z) % moyenne de Z
+% bruit gaussien de moyenne 0.1 et de variance 0.4
+B = sqrt(0.4) .* randn(size(X)) + 0.1;
 
-varZ = var(Z) % variance de Z
+%%
+% Calcul de la somme des signaux :
 
-% Question 2
+Z = Y + C + B;
+
+%%
+% Calcul de la moyenne de Z :
+meanZ = mean(Z)
+
+%%
+% Calcul de la variance de Z :
+varZ = var(Z)
+
+%% Question 2
+% Affichage de tous les signaux : 
 
 plot(X, Y, X, C, X, B, X, Z);
 title("Sinus, constante, bruit et signal résultant");
