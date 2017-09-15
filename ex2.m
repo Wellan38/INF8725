@@ -8,8 +8,8 @@
 % Y(t)=2sin(165πt) + 13cos(6πt) - 3cos(80πt)
 % Fréquences présentes dans ce signal :
 % Le signal est déjà écrit comme une somme de sinusoïdes.
-% On peut donc lire directement les fréquences présentes :
-% f1 = 6Hz, f2 = 40Hz et f3 = 165Hz.
+% On peut donc lire directement les fréquences présentes (en divisant par 2) :
+% f1 = 3Hz, f2 = 40Hz et f3 = 82.5Hz.
 
 % Question 2
 % Abscisses
@@ -51,5 +51,5 @@ xlabel("Temps (fréquence d'échantillonnage 330Hz)")
 % Plus la fréquence d'échantillonnage est élevée, plus le signal est détaillé et régulier.
 
 % Question 4
-% Le théorème de Nyquist-Shannon nous dit que la fréquence d'échantillonnage minimale qui permet de reconstituer un signal est le double de la fréquence maximale du signal, soit 165Hz. La seule fréquence qui répond à ce critère est f5=330Hz, c'est donc la fréquence d'échantillonnage optimale.
+% Le théorème de Nyquist-Shannon nous dit que la fréquence d'échantillonnage minimale qui permet de reconstituer un signal est le double de la fréquence maximale du signal, soit 82.5Hz. Les fréquences qui répondent à ce critère sont 180Hz et 330Hz, 330Hz est donc la fréquence d'échantillonnage optimale.
 
