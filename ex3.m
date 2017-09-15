@@ -2,7 +2,7 @@
 
 %% Question 1
 
-T = 0:0.0001:2; % domaine temporel
+T = 0:(1/250):0.5-(1/250);
 
 Y1 = 5 * sin(2 * pi * 4 * T); % Y1
 
@@ -40,3 +40,25 @@ grid on;
 TZ = 1.561 - 0.5609 % periode empirique du signal
 
 TZ_th = gcd(4, gcd(45, 70)) % periode theorique du signal
+
+% Question 4
+% Transformée de Fourier discrète de chaque signal
+tf1 = fft(Y1);
+tf2 = fft(Y2);
+tf3 = fft(Y3);
+Fe = 250;
+N = size(T,2);
+dt=1/Fe;
+dF = Fe/N;
+f = -Fe/2:dF:Fe/2-dF;
+figure(6)
+subplot(3,1,1)
+plot(f,abs(fftshift(tf1))/N);
+xlabel("Frequence (Hz)")
+subplot(3,1,2)
+plot(f,abs(fftshift(tf2))/N);
+xlabel("Frequence (Hz)")
+subplot(3,1,3)
+plot(f,abs(fftshift(tf3))/N);
+xlabel("Frequence (Hz)")
+% On remarque que le spectre de chaque signal présente un unique pic en la fréquence directement lisible dans sa formule.
