@@ -85,13 +85,15 @@ xlabel("Frequence (Hz)")
 subplot(3,1,3)
 plot(f,abs(fftshift(tf3))/N);
 xlabel("Frequence (Hz)")
+%%
 % On remarque que le spectre de chaque signal présente un unique pic en la fréquence directement lisible dans sa formule.
 
-% Question 5
+%% Question 5
 % Transformee de Fourier discrete du signal composite
 tf = fft(Y1 + Y2 + Y3);
 figure(7)
 plot(f,abs(fftshift(tf))/N);
 xlabel("Frequence (Hz)")
+%%
 % On constate que le spectre du signal composite est composé des fréquences de chaque signal présent dans la somme.
 % On n'a pas un Dirac parfait pour la fréquence correspondant à Y2 (le pic est "decapite") car la fréquence d'echantillonnage de 250Hz, bien que suffisante pour reconstituer le signal (Shannon), ne permet pas d'afficher l'amplitude de 1,5.
