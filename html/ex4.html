@@ -1,0 +1,263 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 4 : Signal audio</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-29"><meta name="DC.source" content="ex4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 4 : Signal audio</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Question 1</a></li><li><a href="#3">Question 2</a></li><li><a href="#5">Question 4</a></li><li><a href="#8">Question 5</a></li><li><a href="#12">Question 6</a></li><li><a href="#13">Question 7</a></li><li><a href="#18">Question 8</a></li></ul></div><h2 id="1">Question 1</h2><pre class="codeinput">[Data, Fe] = audioread(<span class="string">'audio.wav'</span>);
+</pre><p>Il y a une perturbation sur toute la longueur du morceau, haute fr&eacute;quence. Il y a un vrombissement en basse fr&eacute;quence.</p><h2 id="3">Question 2</h2><pre class="codeinput">tf = fftshift(fft(Data));
+dt = 1/Fe;
+N = size(Data,1);
+dF = Fe/N;
+f = -Fe/2:dF:Fe/2-dF;
+
+figure;
+plot(f,abs(tf)/N);
+xlabel(<span class="string">"Frequence (Hz)"</span>);
+ylabel(<span class="string">"Amplitude (dB)"</span>);
+title(<span class="string">"Spectre du signal audio"</span>);
+</pre><img vspace="5" hspace="5" src="ex4_01.png" alt=""> <p>On distingue deux mi b&eacute;mol (a 1245Hz et 2489Hz) et un si b&eacute;mol (a 3734Hz, ce qui est l&eacute;gerement sup&eacute;rieur a la valeur th&eacute;orique).</p><h2 id="5">Question 4</h2><p>G&eacute;n&eacute;ration d'un filtre passe-bas de fr&eacute;quence de coupure 1800Hz (suffisant pour &eacute;liminer la perturbation aig&uuml;e) :</p><pre class="codeinput">lp_filter = fir1(128, 1800 / Fe, <span class="string">'low'</span>);
+data_lowpass = filter(lp_filter, 1, Data);
+figure;
+tf_lowpass = fftshift(fft(data_lowpass));
+plot(f,abs(tf_lowpass)/N);
+title(<span class="string">'Spectre en fr&eacute;quence du signal filtr&eacute;'</span>);
+xlabel(<span class="string">'Fr&eacute;quence (Hz)'</span>);
+ylabel(<span class="string">'Amplitude (dB)'</span>);
+
+audiowrite(<span class="string">'melodie_lowpass.wav'</span>, data_lowpass, Fe);
+</pre><img vspace="5" hspace="5" src="ex4_02.png" alt=""> <p>Nous avons bien filtr&eacute; la perturbation en mi bemol, cependant une grosse partie de la m&eacute;lodie a &eacute;galement disparu (notamment les percussions). La solution serait de r&eacute;aliser un filtre coupe-bande dont la bande bloquante est centr&eacute;e sur la perturbation, et suffisamment resser&eacute;e pour ne pas perdre trop d'information sur la m&eacute;lodie.</p><h2 id="8">Question 5</h2><p>Filtre de Chebychev :</p><pre class="codeinput">hp_filter_cheby = fir1(128, 250 / Fe, <span class="string">'high'</span>, chebwin(129, 30));
+</pre><p>Filtre de Blackman :</p><pre class="codeinput">hp_filter_blackman = fir1(128, 250 / Fe, <span class="string">'high'</span>, blackman(129));
+</pre><p>Filtre de Hamming :</p><pre class="codeinput">hp_filter_hamming = fir1(128, 250 / Fe, <span class="string">'high'</span>, hamming(129));
+</pre><h2 id="12">Question 6</h2><pre class="codeinput">figure;
+
+dis_cheby = dfilt.dffir(hp_filter_cheby);
+dis_blackman = dfilt.dffir(hp_filter_blackman);
+dis_hamming = dfilt.dffir(hp_filter_hamming);
+
+freqz([dis_cheby, dis_blackman, dis_hamming])
+</pre><img vspace="5" hspace="5" src="ex4_03.png" alt=""> <img vspace="5" hspace="5" src="ex4_04.png" alt=""> <h2 id="13">Question 7</h2><p>Chebychev :</p><pre class="codeinput">data_hp_cheby = filter(hp_filter_cheby, 1, data_lowpass);
+audiowrite(<span class="string">'melodie_hp_cheby.wav'</span>, data_hp_cheby, Fe);
+</pre><p>Blackman :</p><pre class="codeinput">data_hp_blackman = filter(hp_filter_blackman, 1, data_lowpass);
+audiowrite(<span class="string">'melodie_hp_blackman.wav'</span>, data_hp_blackman, Fe);
+</pre><p>Hamming :</p><pre class="codeinput">data_hp_hamming = filter(hp_filter_hamming, 1, data_lowpass);
+audiowrite(<span class="string">'melodie_hp_hamming.wav'</span>, data_hp_hamming, Fe);
+</pre><p>On constate que le filtre de Blackman &eacute;limine mois bien le vrombissement dans les basses fr&eacute;quences. Nous n'avons pas remarqu&eacute; de diff&eacute;rence notable entre les filtres de Chebychev et Hamming. Pour le filtre passe-haut, il faut faire un compromis entre la r&eacute;duction du vrombissement et la conservation des basses fr&eacute;quences pr&eacute;sentes dans la musique originale.</p><h2 id="18">Question 8</h2><p>Chebychev :</p><pre class="codeinput">figure;
+tf_hp_cheby = fftshift(fft(data_hp_cheby));
+plot(f,abs(tf_hp_cheby)/N);
+title(<span class="string">'Spectre en fr&eacute;quence pour le filtre de Chebychev'</span>);
+xlabel(<span class="string">'Fr&eacute;quence (Hz)'</span>);
+ylabel(<span class="string">'Amplitude(dB)'</span>);
+</pre><img vspace="5" hspace="5" src="ex4_05.png" alt=""> <p>Blackman :</p><pre class="codeinput">figure;
+tf_hp_blackman = fftshift(fft(data_hp_blackman));
+plot(f,abs(tf_hp_blackman)/N);
+title(<span class="string">'Spectre en fr&eacute;quence pour le filtre de Blackman'</span>);
+xlabel(<span class="string">'Fr&eacute;quence (Hz)'</span>);
+ylabel(<span class="string">'Amplitude(dB)'</span>);
+</pre><img vspace="5" hspace="5" src="ex4_06.png" alt=""> <p>Hamming :</p><pre class="codeinput">figure;
+tf_hp_hamming = fftshift(fft(data_hp_hamming));
+plot(f,abs(tf_hp_hamming)/N);
+title(<span class="string">'Spectre en fr&eacute;quence pour le filtre de Hamming'</span>);
+xlabel(<span class="string">'Fr&eacute;quence (Hz)'</span>);
+ylabel(<span class="string">'Amplitude(dB)'</span>);
+</pre><img vspace="5" hspace="5" src="ex4_07.png" alt=""> <p>On constate que le filtre avec une fen&ecirc;tre de Chebychev pr&eacute;sente des oscillations au-dela de la fr&eacute;quence de coupure. Les deux autres filtres n'en pr&eacute;sentent pas, cependant on constate que la fen&ecirc;tre de Hamming permet d'obtenir une zone att&eacute;nu&eacute;e plus &eacute;troite (ce qui explique le vombrissement mieux att&eacute;nu&eacute; avec Hamming qu'avec Blackman).</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 4 : Signal audio
+
+%% Question 1
+
+[Data, Fe] = audioread('audio.wav');
+
+%%
+% Il y a une perturbation sur toute la longueur du morceau, haute fréquence.
+% Il y a un vrombissement en basse fréquence.
+
+%% Question 2
+
+tf = fftshift(fft(Data));
+dt = 1/Fe;
+N = size(Data,1);
+dF = Fe/N;
+f = -Fe/2:dF:Fe/2-dF;
+
+figure;
+plot(f,abs(tf)/N);
+xlabel("Frequence (Hz)");
+ylabel("Amplitude (dB)");
+title("Spectre du signal audio");
+
+%%
+% On distingue deux mi bémol (a 1245Hz et 2489Hz) et un si bémol (a 3734Hz,
+% ce qui est légerement supérieur a la valeur théorique).
+
+%% Question 4
+
+%%
+% Génération d'un filtre passe-bas de fréquence de coupure 1800Hz
+% (suffisant pour éliminer la perturbation aigüe) :
+lp_filter = fir1(128, 1800 / Fe, 'low');
+data_lowpass = filter(lp_filter, 1, Data);
+figure;
+tf_lowpass = fftshift(fft(data_lowpass));
+plot(f,abs(tf_lowpass)/N);
+title('Spectre en fréquence du signal filtré');
+xlabel('Fréquence (Hz)');
+ylabel('Amplitude (dB)');
+
+audiowrite('melodie_lowpass.wav', data_lowpass, Fe);
+
+%%
+% Nous avons bien filtré la perturbation en mi bemol, cependant une grosse
+% partie de la mélodie a également disparu (notamment les percussions).
+% La solution serait de réaliser un filtre coupe-bande dont la bande
+% bloquante est centrée sur la perturbation, et suffisamment resserée pour
+% ne pas perdre trop d'information sur la mélodie.
+
+%% Question 5
+
+%%
+% Filtre de Chebychev :
+hp_filter_cheby = fir1(128, 250 / Fe, 'high', chebwin(129, 30));
+
+%%
+% Filtre de Blackman :
+hp_filter_blackman = fir1(128, 250 / Fe, 'high', blackman(129));
+
+%%
+% Filtre de Hamming :
+hp_filter_hamming = fir1(128, 250 / Fe, 'high', hamming(129));
+
+%% Question 6
+
+figure;
+
+dis_cheby = dfilt.dffir(hp_filter_cheby);
+dis_blackman = dfilt.dffir(hp_filter_blackman);
+dis_hamming = dfilt.dffir(hp_filter_hamming);
+
+freqz([dis_cheby, dis_blackman, dis_hamming])
+
+%% Question 7
+
+%%
+% Chebychev :
+data_hp_cheby = filter(hp_filter_cheby, 1, data_lowpass);
+audiowrite('melodie_hp_cheby.wav', data_hp_cheby, Fe);
+
+%%
+% Blackman :
+data_hp_blackman = filter(hp_filter_blackman, 1, data_lowpass);
+audiowrite('melodie_hp_blackman.wav', data_hp_blackman, Fe);
+
+%%
+% Hamming :
+data_hp_hamming = filter(hp_filter_hamming, 1, data_lowpass);
+audiowrite('melodie_hp_hamming.wav', data_hp_hamming, Fe);
+
+%%
+% On constate que le filtre de Blackman élimine mois bien le vrombissement
+% dans les basses fréquences. Nous n'avons pas remarqué de différence
+% notable entre les filtres de Chebychev et Hamming.
+% Pour le filtre passe-haut, il faut faire un compromis entre la réduction
+% du vrombissement et la conservation des basses fréquences présentes dans
+% la musique originale.
+
+%% Question 8
+
+%%
+% Chebychev :
+figure;
+tf_hp_cheby = fftshift(fft(data_hp_cheby));
+plot(f,abs(tf_hp_cheby)/N);
+title('Spectre en fréquence pour le filtre de Chebychev');
+xlabel('Fréquence (Hz)');
+ylabel('Amplitude(dB)');
+
+%%
+% Blackman :
+figure;
+tf_hp_blackman = fftshift(fft(data_hp_blackman));
+plot(f,abs(tf_hp_blackman)/N);
+title('Spectre en fréquence pour le filtre de Blackman');
+xlabel('Fréquence (Hz)');
+ylabel('Amplitude(dB)');
+
+%%
+% Hamming :
+figure;
+tf_hp_hamming = fftshift(fft(data_hp_hamming));
+plot(f,abs(tf_hp_hamming)/N);
+title('Spectre en fréquence pour le filtre de Hamming');
+xlabel('Fréquence (Hz)');
+ylabel('Amplitude(dB)');
+
+%%
+% On constate que le filtre avec une fenêtre de Chebychev présente des
+% oscillations au-dela de la fréquence de coupure.
+% Les deux autres filtres n'en présentent pas, cependant on constate que la
+% fenêtre de Hamming permet d'obtenir une zone atténuée plus étroite (ce
+% qui explique le vombrissement mieux atténué avec Hamming qu'avec Blackman).
+##### SOURCE END #####
+--></body></html>

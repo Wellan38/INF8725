@@ -1,0 +1,158 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 2 : &Eacute;chantillonage</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-15"><meta name="DC.source" content="ex2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 2 : &Eacute;chantillonage</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Question 1</a></li><li><a href="#2">Question 2</a></li><li><a href="#6">Question 3</a></li><li><a href="#7">Question 4</a></li></ul></div><h2 id="1">Question 1</h2><p>Y(t)=2sin(16 * pi * t) + 13cos(6 * pi * t) - 3cos(80 * pi * t) Fr&eacute;quences pr&eacute;sentes dans ce signal : Le signal est d&eacute;j&agrave;&nbsp; &eacute;crit comme une somme de sinuso&iuml;des. On peut donc lire directement les fr&eacute;quences pr&eacute;sentes (en divisant par 2) : f1 = 3Hz, f2 = 40Hz et f3 = 82.5Hz.</p><h2 id="2">Question 2</h2><p>Abscisses :</p><pre class="codeinput">t0 = 0:(1/20):1;
+t1 = 0:(1/75):1;
+t2 = 0:(1/100):1;
+t3 = 0:(1/160):1;
+t4 = 0:(1/180):1;
+t5 = 0:(1/330):1;
+</pre><p>Ordonn&eacute;es :</p><pre class="codeinput">y0 = 2*sin(165*pi*t0)+13*cos(6*pi*t0)-3*cos(80*pi*t0);
+y1 = 2*sin(165*pi*t1)+13*cos(6*pi*t1)-3*cos(80*pi*t1);
+y2 = 2*sin(165*pi*t2)+13*cos(6*pi*t2)-3*cos(80*pi*t2);
+y3 = 2*sin(165*pi*t3)+13*cos(6*pi*t3)-3*cos(80*pi*t3);
+y4 = 2*sin(165*pi*t4)+13*cos(6*pi*t4)-3*cos(80*pi*t4);
+y5 = 2*sin(165*pi*t5)+13*cos(6*pi*t5)-3*cos(80*pi*t5);
+</pre><p>Trac&eacute; :</p><pre class="codeinput">figure(2)
+subplot(6,1,1)
+plot(t0,y0)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 20Hz)"</span>)
+subplot(6,1,2)
+plot(t1,y1)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 75Hz)"</span>)
+subplot(6,1,3)
+plot(t2,y2)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 100Hz)"</span>)
+subplot(6,1,4)
+plot(t3,y3)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 160Hz)"</span>)
+subplot(6,1,5)
+plot(t4,y4)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 180Hz)"</span>)
+subplot(6,1,6)
+plot(t5,y5)
+xlabel(<span class="string">"Temps (fr&eacute;quence d'&eacute;chantillonnage 330Hz)"</span>)
+</pre><img vspace="5" hspace="5" src="ex2_01.png" alt=""> <h2 id="6">Question 3</h2><p>Plus la fr&eacute;quence d'&eacute;chantillonnage est &eacute;lev&eacute;e, plus le signal est d&eacute;taill&eacute; et r&eacute;gulier.</p><h2 id="7">Question 4</h2><p>Le th&eacute;or&egrave;me de Nyquist-Shannon nous dit que la fr&eacute;quence d'&eacute;chantillonnage minimale qui permet de reconstituer un signal est le double de la fr&eacute;quence maximale du signal, soit 82.5Hz. Les fr&eacute;quences qui r&eacute;pondent &agrave; ce crit&egrave;re sont 180Hz et 330Hz, 330Hz est donc la fr&eacute;quence d'&eacute;chantillonnage optimale.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 2 : Échantillonage
+
+%% Question 1
+% Y(t)=2sin(16 * pi * t) + 13cos(6 * pi * t) - 3cos(80 * pi * t)
+% Fréquences présentes dans ce signal :
+% Le signal est déjà  écrit comme une somme de sinusoïdes.
+% On peut donc lire directement les fréquences présentes (en divisant par 2) :
+% f1 = 3Hz, f2 = 40Hz et f3 = 82.5Hz.
+
+%% Question 2
+%%
+% Abscisses :
+t0 = 0:(1/20):1;
+t1 = 0:(1/75):1;
+t2 = 0:(1/100):1;
+t3 = 0:(1/160):1;
+t4 = 0:(1/180):1;
+t5 = 0:(1/330):1;
+%%
+% Ordonnées :
+y0 = 2*sin(165*pi*t0)+13*cos(6*pi*t0)-3*cos(80*pi*t0);
+y1 = 2*sin(165*pi*t1)+13*cos(6*pi*t1)-3*cos(80*pi*t1);
+y2 = 2*sin(165*pi*t2)+13*cos(6*pi*t2)-3*cos(80*pi*t2);
+y3 = 2*sin(165*pi*t3)+13*cos(6*pi*t3)-3*cos(80*pi*t3);
+y4 = 2*sin(165*pi*t4)+13*cos(6*pi*t4)-3*cos(80*pi*t4);
+y5 = 2*sin(165*pi*t5)+13*cos(6*pi*t5)-3*cos(80*pi*t5);
+%%
+% Tracé :
+figure(2)
+subplot(6,1,1)
+plot(t0,y0)
+xlabel("Temps (fréquence d'échantillonnage 20Hz)")
+subplot(6,1,2)
+plot(t1,y1)
+xlabel("Temps (fréquence d'échantillonnage 75Hz)")
+subplot(6,1,3)
+plot(t2,y2)
+xlabel("Temps (fréquence d'échantillonnage 100Hz)")
+subplot(6,1,4)
+plot(t3,y3)
+xlabel("Temps (fréquence d'échantillonnage 160Hz)")
+subplot(6,1,5)
+plot(t4,y4)
+xlabel("Temps (fréquence d'échantillonnage 180Hz)")
+subplot(6,1,6)
+plot(t5,y5)
+xlabel("Temps (fréquence d'échantillonnage 330Hz)")
+
+%% Question 3
+% Plus la fréquence d'échantillonnage est élevée, plus le signal est détaillé et régulier.
+
+%% Question 4
+% Le théorème de Nyquist-Shannon nous dit que la fréquence d'échantillonnage minimale qui permet de reconstituer un signal est le double de la fréquence maximale du signal, soit 82.5Hz. Les fréquences qui répondent à ce critère sont 180Hz et 330Hz, 330Hz est donc la fréquence d'échantillonnage optimale.
+
+
+##### SOURCE END #####
+--></body></html>

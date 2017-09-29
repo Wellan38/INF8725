@@ -1,0 +1,247 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exercice 3 : Analyse spectrale</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-29"><meta name="DC.source" content="ex3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Exercice 3 : Analyse spectrale</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Question 1</a></li><li><a href="#5">Question 2</a></li><li><a href="#9">Question 3</a></li><li><a href="#14">Question 4</a></li><li><a href="#16">Question 5</a></li></ul></div><h2 id="1">Question 1</h2><p>D&eacute;finition du domaine temporel :</p><pre class="codeinput">T = 0:(1/250):0.5-(1/250);
+</pre><p>D&eacute;finition des signaux &eacute;l&eacute;mentaires :</p><pre class="codeinput"><span class="comment">% Y1</span>
+Y1 = 5 * sin(2 * pi * 4 * T);
+
+<span class="comment">% Y2</span>
+Y2 = 3 * sin(2 * pi * 45 * T);
+
+<span class="comment">% Y3</span>
+Y3 = 2 * sin(2 * pi * 70 * T);
+</pre><p>Affichage des signaux &eacute;l&eacute;mentaires :</p><pre class="codeinput">figure;
+subplot(1,2,1);
+plot(T, Y1, T, Y2, T, Y3);
+title(<span class="string">"Signaux &eacute;l&eacute;mentaires"</span>);
+legend(<span class="string">"Y1"</span>, <span class="string">"Y2"</span>, <span class="string">"Y3"</span>);
+xlabel(<span class="string">"temps (s)"</span>);
+ylabel(<span class="string">"valeur du signal"</span>);
+</pre><img vspace="5" hspace="5" src="ex3_01.png" alt=""> <h2 id="5">Question 2</h2><p>P&eacute;riode du signal Y1. P&eacute;riode th&eacute;orique = 0.25s :</p><pre class="codeinput">T1 = 0.5 / 2
+</pre><pre class="codeoutput">
+T1 =
+
+    0.2500
+
+</pre><p>P&eacute;riode du signal Y2. P&eacute;riode th&eacute;orique = 1/45 = 0.222...s :</p><pre class="codeinput">T2 = 0.5 / 22.5
+</pre><pre class="codeoutput">
+T2 =
+
+    0.0222
+
+</pre><p>P&eacute;riode du signal Y2. P&eacute;riode th&eacute;orique = 1/70 = 0.01429...s :</p><pre class="codeinput">T3 = 0.5 / 35
+</pre><pre class="codeoutput">
+T3 =
+
+    0.0143
+
+</pre><h2 id="9">Question 3</h2><p>D&eacute;finition du signal r&eacute;sultant :</p><pre class="codeinput">Z = Y1 + Y2 + Y3;
+</pre><p>Affichage du signal r&eacute;sultant :</p><pre class="codeinput">subplot(1,2,2);
+plot(T, Z);
+title(<span class="string">"Signal r&eacute;sultant"</span>);
+xlabel(<span class="string">"temps (s)"</span>);
+ylabel(<span class="string">"valeur du signal"</span>);
+grid <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="ex3_02.png" alt=""> <p>P&eacute;riode empirique du signal :</p><pre class="codeinput">TZ = 1.561 - 0.5609
+</pre><pre class="codeoutput">
+TZ =
+
+    1.0001
+
+</pre><p>P&eacute;riode th&eacute;orique du signal :</p><pre class="codeinput">TZ_th = gcd(4, gcd(45, 70))
+</pre><pre class="codeoutput">
+TZ_th =
+
+     1
+
+</pre><h2 id="14">Question 4</h2><p>Transform&eacute;e de Fourier discr&egrave;te de chaque signal</p><pre class="codeinput">tf1 = fft(Y1);
+tf2 = fft(Y2);
+tf3 = fft(Y3);
+Fe = 250;
+N = size(T,2);
+dt=1/Fe;
+dF = Fe/N;
+f = -Fe/2:dF:Fe/2-dF;
+figure(6)
+subplot(3,1,1)
+plot(f,abs(fftshift(tf1))/N);
+xlabel(<span class="string">"Frequence (Hz)"</span>)
+subplot(3,1,2)
+plot(f,abs(fftshift(tf2))/N);
+xlabel(<span class="string">"Frequence (Hz)"</span>)
+subplot(3,1,3)
+plot(f,abs(fftshift(tf3))/N);
+xlabel(<span class="string">"Frequence (Hz)"</span>)
+</pre><img vspace="5" hspace="5" src="ex3_03.png" alt=""> <p>On remarque que le spectre de chaque signal pr&eacute;sente un unique pic en la fr&eacute;quence directement lisible dans sa formule.</p><h2 id="16">Question 5</h2><p>Transformee de Fourier discrete du signal composite</p><pre class="codeinput">tf = fft(Y1 + Y2 + Y3);
+figure(7)
+plot(f,abs(fftshift(tf))/N);
+xlabel(<span class="string">"Frequence (Hz)"</span>)
+</pre><img vspace="5" hspace="5" src="ex3_04.png" alt=""> <p>On constate que le spectre du signal composite est compos&eacute; des fr&eacute;quences de chaque signal pr&eacute;sent dans la somme. On n'a pas un Dirac parfait pour la fr&eacute;quence correspondant &agrave; Y2 (le pic est "decapite") car la fr&eacute;quence d'echantillonnage de 250Hz, bien que suffisante pour reconstituer le signal (Shannon), ne permet pas d'afficher l'amplitude de 1,5.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercice 3 : Analyse spectrale
+
+%% Question 1
+
+%%
+% Définition du domaine temporel :
+T = 0:(1/250):0.5-(1/250);
+
+%%
+% Définition des signaux élémentaires :
+
+% Y1
+Y1 = 5 * sin(2 * pi * 4 * T);
+
+% Y2
+Y2 = 3 * sin(2 * pi * 45 * T);
+
+% Y3
+Y3 = 2 * sin(2 * pi * 70 * T);
+
+%%
+% Affichage des signaux élémentaires :
+figure;
+subplot(1,2,1);
+plot(T, Y1, T, Y2, T, Y3);
+title("Signaux élémentaires");
+legend("Y1", "Y2", "Y3");
+xlabel("temps (s)");
+ylabel("valeur du signal");
+
+%% Question 2
+
+%%
+% Période du signal Y1. Période théorique = 0.25s :
+T1 = 0.5 / 2
+
+%%
+% Période du signal Y2. Période théorique = 1/45 = 0.222...s :
+T2 = 0.5 / 22.5
+
+%%
+% Période du signal Y2. Période théorique = 1/70 = 0.01429...s :
+T3 = 0.5 / 35
+
+%% Question 3
+
+%%
+% Définition du signal résultant :
+Z = Y1 + Y2 + Y3;
+
+%%
+% Affichage du signal résultant :
+subplot(1,2,2);
+plot(T, Z);
+title("Signal résultant");
+xlabel("temps (s)");
+ylabel("valeur du signal");
+grid on;
+
+%%
+% Période empirique du signal :
+TZ = 1.561 - 0.5609
+
+%%
+% Période théorique du signal :
+TZ_th = gcd(4, gcd(45, 70))
+
+%% Question 4
+% Transformée de Fourier discrète de chaque signal
+tf1 = fft(Y1);
+tf2 = fft(Y2);
+tf3 = fft(Y3);
+Fe = 250;
+N = size(T,2);
+dt=1/Fe;
+dF = Fe/N;
+f = -Fe/2:dF:Fe/2-dF;
+figure(6)
+subplot(3,1,1)
+plot(f,abs(fftshift(tf1))/N);
+xlabel("Frequence (Hz)")
+subplot(3,1,2)
+plot(f,abs(fftshift(tf2))/N);
+xlabel("Frequence (Hz)")
+subplot(3,1,3)
+plot(f,abs(fftshift(tf3))/N);
+xlabel("Frequence (Hz)")
+%%
+% On remarque que le spectre de chaque signal présente un unique pic en la fréquence directement lisible dans sa formule.
+
+%% Question 5
+% Transformee de Fourier discrete du signal composite
+tf = fft(Y1 + Y2 + Y3);
+figure(7)
+plot(f,abs(fftshift(tf))/N);
+xlabel("Frequence (Hz)")
+%%
+% On constate que le spectre du signal composite est composé des fréquences de chaque signal présent dans la somme.
+% On n'a pas un Dirac parfait pour la fréquence correspondant à Y2 (le pic est "decapite") car la fréquence d'echantillonnage de 250Hz, bien que suffisante pour reconstituer le signal (Shannon), ne permet pas d'afficher l'amplitude de 1,5.
+
+##### SOURCE END #####
+--></body></html>
