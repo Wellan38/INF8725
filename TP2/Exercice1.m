@@ -1,7 +1,12 @@
+%% Nettoyage préliminaire
+
 clc;
 clear all;
+close all;
 
-% Question 1
+%% Exercice 1 : Filtrage spatial
+
+%% Question 1
 
 [img, map] = imread('theArtist.png');
 img_eq = Egalisation_Histogramme(img);
@@ -10,8 +15,8 @@ imshow(img)
 
 %imshow(img_eq, map)
 
-% Question 2
-
+%% Question 2
+% Masque :
 mask = [
         1, 1, 1;
         1, 1, 1;
@@ -21,8 +26,8 @@ mask = [
 % res = Convolution(img_eq, mask);
 % imshow(res, map)
 
-% Question 3
-
+%% Question 3
+% Masque :
 mask = [
         1, 2, 1, 2, 1;
         2, 4, 8, 4, 2;
@@ -30,11 +35,11 @@ mask = [
         2, 4, 8, 4, 2;
         1, 2, 1, 2, 1
         ] / 90;
- 
+
 res = Convolution(img_eq, mask, 'uint8');
 %imshow(res, map)
 
-% Question 4
+%% Question 4
 [img_g, img_l] = Rehaussement_Contour(res, 0.6);
 figure;
 imshow(img_g, map)
