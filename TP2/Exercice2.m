@@ -24,7 +24,7 @@ imshow(ferm)
 
 % Question 4
 
-Compter_Monnaie(ferm);
+res = Compter_Monnaie(ferm)
 
 function bin = Binariser(img, thresh)
     [height, width] = size(img);
@@ -40,9 +40,30 @@ end
 function res = Compter_Monnaie(img)
     objects = bwlabel(im2bw(img));
     
+    radii = [200, 140, 120, 110, 90];
+    values = [0, 2, 0.25, 0.05, 0.1];
+    
+    coins_map = containers.Map(radii, values);
+    
+    coins = [];
+    
     for i = 1:length(unique(objects)) - 1
         obj = (objects == i);
-        figure;
-        imshow(mat2gray(uint8(255 / i * obj)))
+        
+        for r = radii
+            se = strel('disk', r);
+            dil = imerode(obj, se);
+            
+            if (ismember(1, dil))
+                coins = [coins, r];
+                break;
+            end
+        end
+    end
+    
+    res = 0;
+    
+    for c = coins
+        res = res + coins_map(c);
     end
 end
