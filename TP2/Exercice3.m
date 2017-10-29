@@ -1,11 +1,9 @@
-%% Nettoyage
-
+%% Exercice 3 : Transformée de Fourier 2D
+% Nettoyage
 clc;
 clear all;
 close all;
-%pkg load image signal % octave
-
-%% Exercice 3 : Transformée de Fourier 2D
+pkg load image signal % octave
 
 %% Question 1
 % Chargement des images :
@@ -19,8 +17,6 @@ figure()
 imshow(img_hor)
 figure()
 imshow(img_obl)
-
-%ginput()
 
 %% Question 2
 % TFD recentrée des images (normalisation ?)
@@ -47,7 +43,7 @@ figure()
 imshow(log(1+tf_vert_rot))
 
 %% Question 4
-% On peut inférer de ces résultats la sensibilité au changement de phase.
-% On peut aussi inférer son comportement lorsque l'image d'origine subit une rotation.
+% On peut inférer le comportement de la TFD lorsque l'image d'origine subit une rotation (le résultat également).
+% On peut aussi observer la conservation de la symétrie par la TFD.
 
-% ginput() % octave-cli
+ ginput() % octave-cli
