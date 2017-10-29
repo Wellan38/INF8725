@@ -59,6 +59,7 @@ title('Image filtrée (filtre passe-haut)')
 % Il ne s'agit cependant pas d'un filtre idéal, seulement d'une très bonne approximation.
 
 %% Question 8
+% La composante continue de l'image est filtrée et l'image contient des valeurs négatives/nulles à l'affichage.
 
 %% Question 9
 % La question n'a pas de sens dans le contexte de l'exercice.
