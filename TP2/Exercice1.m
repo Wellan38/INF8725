@@ -1,21 +1,28 @@
-%% Nettoyage prÃ©liminaire
+%% Exercice 1 : Filtrage spatial
 
+%%
+% Nettoyage
 clc;
 clear all;
 close all;
 
-%% Exercice 1 : Filtrage spatial
-
 %% Question 1
 
+%%
+% Lecture de l'image et égalisation de son histogramme
 [img, map] = imread('theArtist.png');
 img_eq = Egalisation_Histogramme(img);
 
 imshow(img)
+title('theArtist.png')
 
-%imshow(img_eq, map)
+figure;
+imshow(img_eq, map)
+title('Image apres égalisation de son histogramme')
 
 %% Question 2
+
+%%
 % Masque :
 mask = [
         1, 1, 1;
@@ -23,10 +30,15 @@ mask = [
         1, 1, 1
         ] / 9;
 
-% res = Convolution(img_eq, mask);
-% imshow(res, map)
+%%
+% Image filtrée
+res = Convolution(img_eq, mask, 'uint8');
+imshow(res, map)
+title('Image filtrée')
 
 %% Question 3
+
+%%
 % Masque :
 mask = [
         1, 2, 1, 2, 1;
@@ -36,14 +48,26 @@ mask = [
         1, 2, 1, 2, 1
         ] / 90;
 
+%%
+% Image filtrée
 res = Convolution(img_eq, mask, 'uint8');
-%imshow(res, map)
+imshow(res, map)
+title('Image filtrée')
 
 %% Question 4
+
+%%
+% Réhaussement des contours. Nous avons choisi K = 0.6, car 1.2 déformait
+% trop l'image.
 [img_g, img_l] = Rehaussement_Contour(res, 0.6);
 figure;
 imshow(img_g, map)
+title('Image avec contours réhaussés')
 
+%% Fonctions
+
+%%
+% Fonction d,égalisation d'histogramme
 function res = Egalisation_Histogramme(img)
     histo = zeros(1, 256);
     [height, width] = size(img);
@@ -73,6 +97,9 @@ function res = Egalisation_Histogramme(img)
     end
 end
 
+
+%%
+% Fonction de convolution
 function res = Convolution(img, mask, type)
     [height, width] = size(img);
     mask_dim = size(mask);
@@ -97,6 +124,12 @@ function res = Convolution(img, mask, type)
     end
 end
 
+%% Question 5
+% Un bruit de type poivre-et-sel persiste sur l'image. On peut l'enlever
+% avec un filtre médian.
+
+%%
+% Fonction de réhaussement de contours
 function [img_r, img_l] = Rehaussement_Contour(img, K)
     G = [
             1, 2, 1;

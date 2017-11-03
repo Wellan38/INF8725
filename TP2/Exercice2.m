@@ -1,29 +1,45 @@
+%% Exercice 2
+
+%%
+% Nettoyage
+
 clc;
 clear all;
+close all;
 
-% Question 1
+%% Question 1
 
+%%
+% Lecture et affichage de l'image en nuances de gris
 [img, map] = imread('pieces.jpg');
 img_gray = rgb2gray(img);
 
 imshow(img_gray)
+title('pieces.jpg')
 
-% Question 2
+%% Question 2
 
+%%
+% Binarisation de l'image
 bin = 255 - Binariser(img, 250);
 
 figure;
 imshow(bin)
+title('Image binarisée')
 
-% Question 3
+%% Question 3
 
+%%
+% Application de la fermeture a l'image binarisée
 ferm = Fermeture(bin);
 
 figure;
 imshow(ferm)
+title('Fermeture appliquée a l''image')
 
-% Question 4
+%%Question 4
 
+% Comptage des pieces
 res = Compter_Monnaie(ferm)
 
 function bin = Binariser(img, thresh)
