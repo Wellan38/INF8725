@@ -64,6 +64,10 @@ figure;
 imshow(img_g, map)
 title('Image avec contours réhaussés')
 
+%% Question 5
+% Un bruit de type poivre-et-sel persiste sur l'image. On peut l'enlever
+% avec un filtre médian.
+
 %% Fonctions
 
 %%
@@ -123,10 +127,6 @@ function res = Convolution(img, mask, type)
         end
     end
 end
-
-%% Question 5
-% Un bruit de type poivre-et-sel persiste sur l'image. On peut l'enlever
-% avec un filtre médian.
 
 %%
 % Fonction de réhaussement de contours
