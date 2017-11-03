@@ -59,7 +59,7 @@ title('Image filtrée (filtre gaussien passe-bas)')
 
 %% Question 4
 
-%
+%%
 % On obtient un filtre passe-haut a partir d'un filtre passe-bas.
 H_ph = 1 - fspecial('gaussian', size(tfd), 0.5);
 
@@ -106,7 +106,7 @@ H_non_torse = double(rgb2gray(H_non_torse));
 tfd_sans_torse = (tfd.*H_non_torse)/(max(max(H_non_torse)));
 
 %%
-% Affichage.
+% Affichage
 % Le filtre créé a la main est loin d'être idéal, mais il est suffisant pour montrer la validité de son principe :
 % le filtre précédent masquait tout ce qui n'était pas les valeurs de la transformée correspondant aux manches et
 % son image était blanche sur ces parties (de façon assez grossiere) ;
@@ -115,7 +115,7 @@ tfd_sans_torse = (tfd.*H_non_torse)/(max(max(H_non_torse)));
 img_sans_torse = uint8(abs(ifft2(ifftshift(tfd_sans_torse))));
 figure;
 imshow(img_sans_torse);
-title('Image filtéee (filtre de la question 6');
+title('Image filtrée (filtre de la question 6');
 
 %% Question 7
 
@@ -131,4 +131,4 @@ title('Image filtéee (filtre de la question 6');
 %% Question 9
 
 %%
-% Il s'agit d'un filtre passe-haut, vu l'ordre d'affichage et les filtres réalisés plus haut.
+% Il s'agit d'un filtre passe-haut dont on diminue progressivement la fréquence de coupure, vu l'ordre d'affichage et les filtres réalisés plus haut.
